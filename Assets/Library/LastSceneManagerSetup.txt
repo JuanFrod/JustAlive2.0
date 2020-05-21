@@ -1,5 +1,0 @@
-sceneSetups:
-- path: C:/Users/Master PC/Downloads/Just-Alive-Opcional1/Assets/Scenes/TestMAP.unity
-  isLoaded: 1
-  isActive: 1
-  isSubScene: 0
