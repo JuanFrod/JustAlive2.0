@@ -11,12 +11,12 @@ public class MovimientoJugador : MonoBehaviour
 	[SerializeField]
     public float speed = 6.0f;
 	[SerializeField]
-    public float alturaSalto = 8.0f;
+    public float alturaSalto = 6.0f;
 	[SerializeField]
     public float gravity = 20.0f;
 	private Vector3 direccion;
 
-
+	[SerializeField]
 	public int movementType;
 	[SerializeField]
 	public float sensibilidadCamara = 1.5f;
@@ -35,21 +35,21 @@ public class MovimientoJugador : MonoBehaviour
 
     void Update()
     {
-		movimiento();
-		movimientoCamara();
+
+		if(movementType != 4){
+			movimiento();
+			movimientoCamara();
+		}
+		if (movementType==4){
+			if(direccion.magnitude>0){animator.Play("MuerteCaminando");}
+			else{animator.Play("MuerteQuieto");}}
 
 		if(Input.GetKeyDown(KeyCode.Escape)){Cursor.lockState=CursorLockMode.None;}
 		
     }
 
-	void Paso(){
-        FindObjectOfType<AudioManager>().Play("Paso");
-    }
-
 	void movimiento(){
-		
-		//Animacion para morir
-		if (movementType==4){animator.Play("Muerte");}
+	
 		movementType = 0;
 
 		//Movimiento al caminar
@@ -74,23 +74,27 @@ public class MovimientoJugador : MonoBehaviour
 			float Horizontal = Input.GetAxis("Horizontal");
 			float Vertical = Input.GetAxis("Vertical");
             direccion = new Vector3(Horizontal, 0.0f, Vertical);
+			
+			animator.SetFloat("Velocidad", direccion.magnitude);
+			animator.SetInteger("Tipo", movementType);
+			animator.SetFloat("Horizontal", Horizontal);
+			animator.SetFloat("Vertical", Vertical);
+			
 			direccion.Normalize();
             direccion *= speed;
 
 			//Posicionar la direcion del movimiento a la del juego
 			direccion = transform.TransformDirection(direccion);
 
-            if (Input.GetButton("Jump"))
+            if (Input.GetButton("Jump") && movementType != 2)
             {
                 direccion.y = alturaSalto;
             }
         }
 
         direccion.y -= gravity * Time.deltaTime;
+		animator.SetFloat("Salto", direccion.y);
         jugador.Move(direccion * Time.deltaTime);
-
-		animator.SetFloat("Speed", direccion.magnitude);
-		animator.SetInteger("Type", movementType);
 	}
 
 	void movimientoCamara(){
