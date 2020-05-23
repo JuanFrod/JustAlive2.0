@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
 
     public void Jugar()
     {
-        SceneManager.LoadScene("Escena 1");
+        SceneManager.LoadScene("TestMAP");
     }
 
     public void Instrucciones()

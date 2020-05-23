@@ -15,7 +15,7 @@ public class VidaDaño : MonoBehaviour
 	public bool invencible = false;
 	public float tiempo_invencible = 1f;
 	public float tiempo_frenado = 0.2f;
-
+	public AudioSource sound;
 
 	private void start(){
 		jugador = GetComponent<CharacterController>();
@@ -31,7 +31,7 @@ public class VidaDaño : MonoBehaviour
 		{
 			vida -= cantidad;
 			barravida.SetHealth(vida);
-			
+			sound.Play();
 			StartCoroutine(Invulnerabilidad());
 			if (vida <= 0){GetComponent<MovimientoJugador>().movementType = 4;}
 		}

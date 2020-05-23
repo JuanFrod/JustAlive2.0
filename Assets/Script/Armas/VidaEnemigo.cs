@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class VidaEnemigo : MonoBehaviour
 {
+    public AudioSource dead;
     public float vidaE = 10f;
     public void RecibirDaño(float Amount)
     {
@@ -12,7 +13,9 @@ vidaE -= Amount;
 if(vidaE <= 0f)
 {
     Muerte();
-}
+            dead.Play();
+
+        }
 
 
     }
@@ -21,5 +24,6 @@ if(vidaE <= 0f)
     void Muerte()
     {
         Destroy(gameObject);
+        dead.Play();
     }
 }

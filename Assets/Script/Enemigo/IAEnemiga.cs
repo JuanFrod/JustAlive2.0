@@ -12,7 +12,8 @@ public class IAEnemiga : MonoBehaviour
     private bool perseguir = false;
     private Animator anim;
     VidaDaño vidaPlayer;
-
+   
+    public AudioClip[] audioClipArray;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -25,6 +26,7 @@ public class IAEnemiga : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         dist = Vector3.Distance(player.transform.position, transform.position);
 
         if(dist <= distanciaPerseguir)
@@ -65,12 +67,8 @@ public class IAEnemiga : MonoBehaviour
                 anim.SetFloat("VelY", 0.5f);
             }
         }
-                
-                
-                   
-                
-            
-            
-        
+                       
     }
+
+    
 }
