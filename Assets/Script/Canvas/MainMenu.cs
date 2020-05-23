@@ -6,15 +6,11 @@ using System.Collections.Generic;
 
 public class MainMenu : MonoBehaviour
 {
+    public Animator animator;
 
     public void Jugar()
     {
-        SceneManager.LoadScene("TestMAP");
-    }
-
-    public void Instrucciones()
-    {
-        SceneManager.LoadScene("Instrucciones");
+        StartCoroutine("Fade");
     }
 
     public void Atras()
@@ -26,4 +22,12 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    IEnumerator Fade() 
+    {
+        animator.SetTrigger("FadeOut");
+        yield return new WaitForSeconds(1.0f);
+        SceneManager.LoadScene("Principal");
+    }
+
  }
